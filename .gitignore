@@ -1,0 +1,7 @@
+.vscode/
+*.pyc
+.env 
+core/project/settings/local.py
+.cursorignore
+static/*
+!static/.gitkeep
