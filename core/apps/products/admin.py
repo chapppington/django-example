@@ -1,24 +1,21 @@
 from django.contrib import admin
-from core.apps.products.models import Product
+from core.apps.products.models import ProductModel
 
 
-@admin.register(Product)
+@admin.register(ProductModel)
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        Product.title.field.name, 
-        Product.is_visible.field.name, 
-        Product.description.field.name, 
-        Product.created_at.field.name, 
-        Product.updated_at.field.name
+        ProductModel.title.field.name,
+        ProductModel.is_visible.field.name,
+        ProductModel.description.field.name,
+        ProductModel.created_at.field.name,
+        ProductModel.updated_at.field.name,
     )
-    
+
     list_filter = (
-        Product.is_visible.field.name, 
-        Product.created_at.field.name, 
-        Product.updated_at.field.name
+        ProductModel.is_visible.field.name,
+        ProductModel.created_at.field.name,
+        ProductModel.updated_at.field.name,
     )
-    
-    search_fields = (
-        Product.title.field.name, 
-        Product.description.field.name
-    )
+
+    search_fields = (ProductModel.title.field.name, ProductModel.description.field.name)

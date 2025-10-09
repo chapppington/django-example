@@ -1,2 +1,1 @@
-from .products import Product # noqa 
-
+from .products import ProductModel  # noqa
