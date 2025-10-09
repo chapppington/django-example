@@ -53,3 +53,10 @@ superuser:
 collectstatic:
 	${EXEC} ${APP_CONTAINER} ${MANAGE_PY} collectstatic
 
+.PHONY: precommit
+precommit:
+	pre-commit run --all-files
+
+.PHONY: test
+test:
+	${EXEC} ${APP_CONTAINER} pytest -v
