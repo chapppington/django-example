@@ -10,8 +10,9 @@ from core.api.schemas import (
     ListPaginatedResponse,
     PaginationOut,
 )
+from core.api.v1.products.filters import ProductFilters
 from core.api.v1.products.schemas import ProductSchema
-from core.apps.products.filters.products import ProductFilters
+from core.apps.products.filters.products import ProductFiltersEntity
 from core.apps.products.services.products import IProductService
 from core.project.containers import get_container
 
@@ -29,10 +30,12 @@ def get_product_list_handler(
     service: IProductService = container.resolve(IProductService)
 
     product_list = service.get_product_list(
-        filters=filters,
+        filters=ProductFiltersEntity(search=filters.search),
         pagination=pagination_in,
     )
-    product_count = service.get_product_count(filters=filters)
+    product_count = service.get_product_count(
+        filters=ProductFiltersEntity(search=filters.search),
+    )
     items = [ProductSchema.from_entity(product) for product in product_list]
     pagination_out = PaginationOut(
         offset=pagination_in.offset,
