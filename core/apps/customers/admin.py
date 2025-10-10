@@ -3,11 +3,8 @@ from django.contrib import admin
 from core.apps.customers.models import CustomerModel
 
 
-# Register your models here.
-
-
 @admin.register(CustomerModel)
-class ProductAdmin(admin.ModelAdmin):
+class CustomerAdmin(admin.ModelAdmin):
     list_display = (
         CustomerModel.name.field.name,
         CustomerModel.phone.field.name,
