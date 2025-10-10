@@ -16,7 +16,6 @@ from core.apps.customers.services.customers import (
 )
 from core.apps.customers.services.senders import (
     ComposeSenderService,
-    DummySendService,
     EmailSenderService,
     ISenderService,
     PushSenderService,
@@ -47,7 +46,6 @@ def _initialize_container() -> punq.Container:
         ISenderService,
         ComposeSenderService,
         sender_services=(
-            DummySendService(),
             EmailSenderService(),
             PushSenderService(),
         ),
