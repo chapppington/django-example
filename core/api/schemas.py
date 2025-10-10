@@ -4,10 +4,7 @@ from typing import (
     TypeVar,
 )
 
-from pydantic import (
-    BaseModel,
-    Field,
-)
+from ninja import Schema
 
 from core.api.filters import PaginationOut
 
@@ -16,16 +13,16 @@ TData = TypeVar("TData")
 TListItem = TypeVar("TListItem")
 
 
-class PingResponseSchema(BaseModel):
+class PingResponseSchema(Schema):
     response: bool
 
 
-class ListPaginatedResponse(BaseModel, Generic[TListItem]):
+class ListPaginatedResponse(Schema, Generic[TListItem]):
     items: list[TListItem]
     pagination: PaginationOut
 
 
-class ApiResponse(BaseModel, Generic[TData]):
-    data: TData | dict = Field(default_factory=dict)
-    meta: dict[str, Any] = Field(default_factory=dict)
-    errors: list[Any] = Field(default_factory=list)
+class ApiResponse(Schema, Generic[TData]):
+    data: TData | dict = {}
+    meta: dict[str, Any] = {}
+    errors: list[Any] = []

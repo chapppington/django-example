@@ -1,18 +1,18 @@
-from pydantic import BaseModel
+from ninja import Schema
 
 
-class AuthInSchema(BaseModel):
+class AuthInSchema(Schema):
     phone: str
 
 
-class AuthOutSchema(BaseModel):
+class AuthOutSchema(Schema):
     message: str
 
 
-class TokenOutSchema(BaseModel):
+class TokenOutSchema(Schema):
     token: str
 
 
-class TokenInSchema(BaseModel):
+class TokenInSchema(Schema):
     code: str
     phone: str

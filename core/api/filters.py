@@ -1,12 +1,12 @@
-from pydantic import BaseModel
+from ninja import Schema
 
 
-class PaginationOut(BaseModel):
+class PaginationOut(Schema):
     offset: int
     limit: int
     total: int
 
 
-class PaginationIn(BaseModel):
+class PaginationIn(Schema):
     offset: int = 0
     limit: int = 20
