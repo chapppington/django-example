@@ -12,10 +12,8 @@ from core.api.schemas import (
 )
 from core.api.v1.products.filters import ProductFilters
 from core.api.v1.products.schemas import ProductSchema
-from core.apps.products.services.products import (
-    IProductService,
-    ORMProductService,
-)
+from core.apps.products.containers import get_container
+from core.apps.products.services.products import IProductService
 
 
 router = Router(tags=["products"])
@@ -27,7 +25,9 @@ def get_product_list_handler(
     filters: Query[ProductFilters],
     pagination_in: Query[PaginationIn],
 ) -> ApiResponse[ListPaginatedResponse[ProductSchema]]:
-    service: IProductService = ORMProductService()
+    container = get_container()
+    service: IProductService = container.resolve(IProductService)
+
     product_list = service.get_product_list(
         filters=filters,
         pagination=pagination_in,
