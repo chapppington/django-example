@@ -1,7 +1,10 @@
 from django.db import models
 
 from core.apps.common.models import TimedBaseModel
+from core.apps.customers.entities.customers import CustomerEntity
 from core.apps.customers.models import CustomerModel
+from core.apps.products.entities.products import ProductEntity
+from core.apps.products.entities.reviews import ReviewEntity
 from core.apps.products.models import ProductModel
 
 
@@ -31,3 +34,28 @@ class ReviewModel(TimedBaseModel):
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
         unique_together = ("product", "customer")
+
+    # TODO принимать только review
+    @classmethod
+    def from_entity(
+        cls,
+        review: ReviewEntity,
+        product: ProductEntity,
+        customer: CustomerEntity,
+    ) -> "ReviewModel":
+        return cls(
+            id=review.id,
+            product_id=product.id,
+            customer_id=customer.id,
+            rating=review.rating,
+            comment=review.comment,
+        )
+
+    def to_entity(self) -> ReviewEntity:
+        return ReviewEntity(
+            id=self.id,
+            rating=self.rating,
+            comment=self.comment,
+            created_at=self.created_at,
+            updated_at=self.updated_at,
+        )

@@ -9,6 +9,9 @@ from core.apps.customers.services.customers import ICustomerService
 from core.apps.customers.services.senders import ISenderService
 
 
+# TODO выпилить бизнес логигу и перенести в use_cases
+
+
 @dataclass(eq=False)
 class IAuthService(ABC):
     customer_service: ICustomerService
@@ -29,7 +32,7 @@ class AuthService(IAuthService):
         self.send_service.send_code(code, customer)
 
     def confirm(self, code: str, phone: str):
-        customer = self.customer_service.get(phone)
+        customer = self.customer_service.get_by_phone(phone)
         self.codes_service.validate_code(code, customer)
 
         return self.customer_service.generate_token(customer)
