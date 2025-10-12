@@ -17,3 +17,13 @@ class ReviewInvalidRatingException(ReviewException):
     @property
     def message(self) -> str:
         return f"Invalid rating: {self.rating}, must be between 1 and 5"
+
+
+@dataclass(eq=False)
+class ReviewAlreadyExistsException(ReviewException):
+    product_id: int
+    customer_id: int
+
+    @property
+    def message(self) -> str:
+        return f"Review already exists for product {self.product_id} and customer {self.customer_id}"
