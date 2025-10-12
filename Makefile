@@ -8,6 +8,20 @@ LOGS = docker logs
 STORAGES_FILE = docker_compose/storages.yaml
 MANAGE_PY = python manage.py
 
+MONITORING_FILE = docker_compose/monitoring.yaml
+
+.PHONY: monitoring
+monitoring:
+	${DC} -f ${MONITORING_FILE} ${ENV} up --build -d
+
+
+.PHONY: monitoring-logs
+monitoring-logs:
+	${DC} -f ${MONITORING_FILE} ${ENV} logs -f
+
+.PHONY: monitoring-down
+monitoring-down:
+	${DC} -f ${MONITORING_FILE} down
 
 .PHONY: storages 
 storages: 
