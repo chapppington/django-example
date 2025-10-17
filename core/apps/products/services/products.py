@@ -15,6 +15,9 @@ from core.apps.products.models import ProductModel
 
 class IProductService(ABC):
     @abstractmethod
+    def get_all(self) -> Iterable[ProductEntity]: ...
+
+    @abstractmethod
     def get_by_id(self, product_id: int) -> ProductEntity: ...
 
     @abstractmethod
@@ -63,3 +66,10 @@ class ORMProductService(IProductService):
     def get_product_count(self, filters: ProductFilters) -> int:
         query = self._build_get_product_list_query(filters)
         return ProductModel.objects.filter(query).count()
+
+    def get_all(self) -> Iterable[ProductEntity]:
+        query = self._build_get_product_list_query(ProductFilters())
+        queryset = ProductModel.objects.filter(query)
+
+        for product in queryset:
+            yield product.to_entity()

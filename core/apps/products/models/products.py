@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from core.apps.common.models import TimedBaseModel
@@ -11,6 +12,12 @@ class ProductModel(TimedBaseModel):
     is_visible = models.BooleanField(
         default=True,
         verbose_name="Виден ли товар в каталоге",
+    )
+
+    tags = ArrayField(
+        models.CharField(max_length=100),
+        default=list,
+        verbose_name="Теги",
     )
 
     class Meta:
@@ -28,4 +35,5 @@ class ProductModel(TimedBaseModel):
             description=self.description,
             created_at=self.created_at,
             updated_at=self.updated_at,
+            tags=self.tags,
         )
